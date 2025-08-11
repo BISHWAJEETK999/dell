@@ -3,7 +3,7 @@ services:
     name: ttravel-hospitality
     env: node
     plan: starter
-    buildCommand: npm ci && npm run build
+    buildCommand: ./build.sh
     startCommand: npm start
     envVars:
       - key: NODE_ENV
