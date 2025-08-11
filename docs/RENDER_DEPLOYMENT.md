@@ -44,18 +44,22 @@ git push -u origin main
 
 ### Step 4: Initialize Database Schema
 
-1. Connect to your database using the External Database URL
-2. Run the SQL commands from `migrations/0000_initial_schema.sql`
-3. This creates all tables and inserts default data
+**IMPORTANT**: You need to run this on your Render database directly since the connection from Replit may not work due to network restrictions.
 
-**Option A: Using Render Dashboard**
-- Go to your database → "Connect" → "PSQL"
-- Copy and paste the SQL from the migration file
+**Method 1: Using Render Web Shell (Recommended)**
+1. Go to your Render database dashboard
+2. Click "Connect" → "Web Shell"
+3. Copy and paste the SQL commands from `migrations/0000_initial_schema.sql`
+4. Run each section separately to ensure they execute properly
 
-**Option B: Using local PostgreSQL client**
+**Method 2: Using local PostgreSQL client**
 ```bash
 psql "YOUR_EXTERNAL_DATABASE_URL" < migrations/0000_initial_schema.sql
 ```
+
+**Method 3: Using any PostgreSQL client**
+- Use the external connection string with pgAdmin, DBeaver, or similar
+- Import and run the migration file
 
 ### Step 5: Deploy Web Service
 

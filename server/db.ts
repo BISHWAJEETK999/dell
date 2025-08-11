@@ -5,9 +5,9 @@ import * as schema from "@shared/schema";
 let db: any;
 let pool: any;
 
-// Check if running in production/Render or if DATABASE_URL is provided
-if (process.env.DATABASE_URL && process.env.NODE_ENV === 'production') {
-  // Production database connection for Render
+// Check if DATABASE_URL is available
+if (process.env.DATABASE_URL) {
+  // Use PostgreSQL database when available
   console.log("Using PostgreSQL database for production environment");
   const sql = neon(process.env.DATABASE_URL);
   db = drizzle(sql, { schema });
