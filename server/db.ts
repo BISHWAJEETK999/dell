@@ -1,9 +1,22 @@
+import { drizzle } from 'drizzle-orm/neon-http';
+import { neon } from '@neondatabase/serverless';
 import * as schema from "@shared/schema";
 
-// For VS Code development, use in-memory storage instead of database
-// This will allow the admin portal to work without database connectivity issues
-console.log("Using in-memory storage for VS Code development environment");
+let db: any;
+let pool: any;
 
-// Create a mock database object that matches the expected interface
-export const db = null;
-export const pool = null;
+// Check if running in production/Render or if DATABASE_URL is provided
+if (process.env.DATABASE_URL && process.env.NODE_ENV === 'production') {
+  // Production database connection for Render
+  console.log("Using PostgreSQL database for production environment");
+  const sql = neon(process.env.DATABASE_URL);
+  db = drizzle(sql, { schema });
+  pool = sql;
+} else {
+  // Development environment - use in-memory storage
+  console.log("Using in-memory storage for development environment");
+  db = null;
+  pool = null;
+}
+
+export { db, pool };
